@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+  trails-api:
+    build:
+      context: ./trails-api
+    container_name: trails-api
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/trailsdb
+    restart: always
+
+  trails-web-ui:
+    build:
+      context: ./trails-web-ui
+    container_name: trails-web-ui
+    ports:
+      - "3000:3000"
+    depends_on:
+      - trails-api
+    environment:
+      - REACT_APP_API_URL=http://trails-api:3002
+    restart: always
+
+volumes:
+  mongo-data:
