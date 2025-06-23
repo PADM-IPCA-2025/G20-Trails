@@ -16,9 +16,8 @@
    > npm start
 ## Using the Docker
 ### Creating the containers
-1. Go to **trails** folder (root directory)
-   > cd trails
-2. Buils the containers
+1. Go to the **root directory**
+2. Build the containers
    > docker-compose build
 3. Start the containers
    > docker-compose up
